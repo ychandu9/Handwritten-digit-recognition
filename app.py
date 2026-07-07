@@ -56,8 +56,18 @@ async def predict(req: PredictRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
 
-# Mount the static files directory for the frontend (must be registered last)
-app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="static")
+import os
+
+# Mount the static files directory for the frontend if it exists (for unified hosting/local run)
+if os.path.exists("frontend/dist"):
+    app.mount("/", StaticFiles(directory="frontend/dist", html=True), name="static")
+else:
+    @app.get("/")
+    async def root_status():
+        return {
+            "status": "online",
+            "message": "Neural Digit Scanner API is active. Frontend is hosted on Vercel."
+        }
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="127.0.0.1", port=8000, reload=True)
