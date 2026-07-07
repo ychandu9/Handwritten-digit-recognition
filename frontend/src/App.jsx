@@ -114,11 +114,18 @@ function App() {
     const base64Image = canvas.toDataURL('image/png');
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || (
-        window.location.port === '5173' 
+      let apiUrl = import.meta.env.VITE_API_URL || '';
+      if (!apiUrl) {
+        apiUrl = window.location.port === '5173' 
           ? 'http://127.0.0.1:8000/api/predict' 
-          : '/api/predict'
-      );
+          : '/api/predict';
+      } else {
+        // Automatically append /api/predict if only the base domain was provided
+        if (!apiUrl.endsWith('/api/predict')) {
+          const base = apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
+          apiUrl = `${base}/api/predict`;
+        }
+      }
 
       const response = await fetch(apiUrl, {
         method: 'POST',
