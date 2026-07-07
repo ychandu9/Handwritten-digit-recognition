@@ -1,0 +1,20 @@
+.git
+.gitignore
+.dockerignore
+venv
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.db
+.ipynb_checkpoints
+.gemini
+.agents
+*.log
+
+# Frontend local files
+frontend/node_modules
+frontend/dist
+frontend/.vite
+frontend/.oxlintrc.json
