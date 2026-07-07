@@ -2,6 +2,8 @@
 
 This is a Python project that allows you to draw digits on a GUI canvas and predicts the digit using a Convolutional Neural Network (CNN) trained on the MNIST dataset.
 
+Click on this link to check out the demo: https://handwritten-digit-recognition-beta.vercel.app/#
+
 ---
 
 ## 📁 Files
